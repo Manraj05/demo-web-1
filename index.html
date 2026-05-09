@@ -347,7 +347,7 @@
     /* ══ TABLET ≤ 900px ══ */
     @media (max-width: 900px) {
       #home { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
+      .hero-right { display: none; } /* hide on tablet landscape only */
       .hero-left { padding: 5.5rem 1.5rem 4rem; }
       .hero-h1 { font-size: clamp(3rem, 11vw, 4.5rem); }
       .gallery-asym { grid-template-columns: 1fr 1fr; grid-template-rows: auto; gap: 3px; }
@@ -360,8 +360,22 @@
 
     /* ══ MOBILE ≤ 768px ══ */
     @media (max-width: 768px) {
-      /* Hero */
-      .hero-left { padding: 5.5rem 1.25rem 3.5rem; }
+      /* Hero: stack text then photo */
+      #home { display: flex !important; flex-direction: column !important; min-height: 100svh !important; }
+      .hero-left { flex: 1; padding: 5.5rem 1.25rem 2.5rem !important; }
+
+      /* Show the hero portrait photo below text */
+      .hero-right {
+        display: block !important;
+        flex: 0 0 300px;
+        width: 100%; height: 300px;
+        position: relative;
+      }
+      .hero-right::after {
+        /* Swap gradient: subtle dark at top only, so image reads clearly */
+        background: linear-gradient(to bottom, rgba(17,17,17,.45) 0%, transparent 35%) !important;
+      }
+
       .hero-h1 { font-size: 2.8rem !important; line-height: 1 !important; margin-bottom: 1.75rem !important; }
       .hero-overline { font-size: .58rem; margin-bottom: 1.25rem; }
       .hero-sub { margin-bottom: 2rem; }
